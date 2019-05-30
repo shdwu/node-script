@@ -1,0 +1,496 @@
+swagger: "2.0"
+info:
+  description: "进博会注册系统人员信息接口Restful API"
+  version: "1.0.0"
+  title: "进博会注册系统API"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /user/registry/save/domestic:
+    post:
+      tags:
+        - user-registry-handler
+      summary: "从注册系统中接收境内用户的信息"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "需要保存的境内用户信息"
+        required: true
+        schema:
+          type: object
+          properties:
+            'type':
+              type: string
+              description: 人员类型
+              example: "01"
+            expNo:
+              type: string
+              description: 批次号
+              example: "100192834"
+            dataList:
+              type: array
+              description: 用户信息列表
+              items:
+                $ref: "#/definitions/PersonLocal"
+      responses:
+        200:
+          description: "成功保存"
+          schema:
+            $ref: '#/definitions/SaveResult'
+  /user/registry/save/abroad:
+    post:
+      tags:
+        - user-registry-handler
+      summary: "从注册系统中接收境外(含港澳台)用户的信息"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "需要保存的境外(含港澳台)用户信息"
+        required: true
+        schema:
+          type: object
+          properties:
+            'type':
+              type: string
+              description: 人员类型
+              example: "03"
+            expNo:
+              type: string
+              description: 批次号
+              example: "100192834"
+            dataList:
+              type: array
+              description: 用户信息列表
+              items:
+                $ref: "#/definitions/PersonAbroad"
+      responses:
+        200:
+          description: "成功保存"
+          schema:
+            $ref: '#/definitions/SaveResult'
+  /cert/person/feedback:
+    post:
+      tags:
+        - data-feedback-handler
+      summary: 收人员批量推送过来的人员信息（注册系统提供）
+      description: POST方式提交
+      consumes:
+        - application/json
+      produces:
+        - '*/*'
+      parameters:
+        - in: body
+          name: feedback
+          description: feedback
+          required: true
+          schema:
+            $ref: '#/definitions/PersonFeedback'
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: object
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      deprecated: false
+definitions:
+  PersonLocal:
+    type: "object"
+    required:
+      - birthDate
+      - cardNo
+      - cardType
+      - curArea
+      - curCity
+      - curProvince
+      - email
+      - imagePath
+      - name
+      - personBusinessId
+      - personBusinessType
+      - phone
+      - regisArea
+      - regisCity
+      - regisProvince
+      - sex
+    properties:
+      allowEntDate:
+        type: string
+        description: '允许入馆日期,例如：2019-01-01'
+      allowPerson:
+        type: string
+        description: 审批人
+      allowTime:
+        type: string
+        description: '审批时间,例：yyyy-MM-dd HH:mm:ss'
+      birthDate:
+        type: string
+        description: '出生日期,例：2018-01-01'
+      cardNo:
+        type: string
+        description: 身份证号码
+      cardType:
+        type: string
+        description: '身份证类型,选择'
+      certGrade:
+        type: string
+        description: 证件等级
+      certNo:
+        type: string
+        description: 证件编号
+      checkPerson:
+        type: string
+        description: 审查人
+      checkPro:
+        type: string
+        description: 审查项目
+      checkResult:
+        type: string
+        description: 审查结果
+      checkTerm:
+        type: string
+        description: 审查期限
+      checkTime:
+        type: string
+        description: '审查时间,例：yyyy-MM-dd HH:mm:ss'
+      cuShortCn:
+        type: string
+        description: 单位、国家/地区中文简称
+      cuShortEn:
+        type: string
+        description: 单位、国家/地区英文简称
+      curArea:
+        type: string
+        description: 当前居住地，输入
+      curCity:
+        type: string
+        description: 当前居住城市，选择
+      curProvince:
+        type: string
+        description: 当前居住省/自治区/直辖市，选择
+      daysEnt:
+        type: string
+        description: 5日进馆
+      daysEntCore:
+        type: string
+        description: 5日进核心区
+      email:
+        type: string
+        description: 电子邮箱
+      exhibitNo:
+        type: string
+        description: 展台号
+      imagePath:
+        type: string
+        description: 个人照片
+      name:
+        type: string
+        description: 姓名，仅限输入中文
+      namePinyin:
+        type: string
+        description: 名拼音
+      passArea:
+        type: string
+        description: 通行区域
+      personBusinessId:
+        type: string
+        description: 业务id
+      personBusinessType:
+        type: string
+        description: 业务类型
+      personType:
+        type: string
+        description: 人员类型
+      personalNo:
+        type: string
+        description: 人员编号
+      phone:
+        type: string
+        description: 移动电话
+      qrCode:
+        type: string
+        description: 二维码字符串
+      regisArea:
+        type: string
+        description: 户籍所在地区，输入
+      regisCity:
+        type: string
+        description: 户籍所在城市，选择
+      regisProvince:
+        type: string
+        description: 户籍所在省/自治区/直辖市，选择
+      remark:
+        type: string
+        description: 备注
+      resUnit:
+        type: string
+        description: 负责单位
+      resultNote:
+        type: string
+        description: 结果说明
+      sendTime:
+        type: string
+        description: '发送时间,例：yyyy-MM-dd HH:mm:ss'
+      sex:
+        type: string
+        description: 性别，例：M或F
+      spotNo:
+        type: string
+        description: 现场活动编号
+      surnamePinyin:
+        type: string
+        description: 姓拼音
+      tel:
+        type: string
+        description: 固定电话
+      tradeShCn:
+        type: string
+        description: 交易团简称（中）
+      tradeShEn:
+        type: string
+        description: 交易团简称（英）
+      unitCode:
+        type: string
+        description: 单位代码
+      workUnit:
+        type: string
+        description: 工作单位
+    title: 境内人员对象模型
+  PersonAbroad:
+    type: "object"
+    required:
+      - birthAddress
+      - birthDate
+      - cardType
+      - email
+      - imagePath
+      - liveAddress
+      - nationality
+      - personSource
+      - phone
+      - post
+      - serviceIns
+      - sex
+      - tel
+    properties:
+      allowEntDate:
+        type: string
+        description: 允许入馆日期
+      birthAddress:
+        type: string
+        description: 出生地址
+      birthDate:
+        type: string
+        description: 出生日期，例如：2019-01-01
+      cardNo:
+        type: string
+        description: 身份证件号
+      cardType:
+        type: string
+        description: 身份证件类型，01：护照，02：台胞证，03：回乡证
+      certGrade:
+        type: string
+        description: 证件等级
+      certNo:
+        type: string
+        description: 证件编号
+      cuShortCn:
+        type: string
+        description: 单位、国家/地区中文简称
+      cuShortEn:
+        type: string
+        description: 单位、国家/地区英文简称
+      daysEnt:
+        type: string
+        description: 5日进馆
+      daysEntCore:
+        type: string
+        description: 5日进核心区
+      email:
+        type: string
+        description: 电子邮箱
+      entryDate:
+        type: string
+        description: 入境日期
+      eventName:
+        type: string
+        description: 重大活动名称
+      exhibitNo:
+        type: string
+        description: 展台号
+      exitDate:
+        type: string
+        description: 出境日期
+      imagePath:
+        type: string
+        description: 证件照路径
+      liveAddress:
+        type: string
+        description: 居住地址
+      nameCn:
+        type: string
+        description: 中文姓名，仅限输入中文
+      nameEn:
+        type: string
+        description: 英文名，仅限输入英文和点
+      namePinyin:
+        type: string
+        description: 名拼音
+      nationality:
+        type: string
+        description: '国籍,选择'
+      passNameEn:
+        type: string
+        description: 护照显示的英文姓名
+      passPlace:
+        type: string
+        description: 通行区域
+      personBusinessId:
+        type: string
+        description: 业务id
+      personBusinessType:
+        type: string
+        description: 业务类型
+      personSource:
+        type: string
+        description: '人员来源，01: 港澳台，02：境外'
+      personType:
+        type: string
+        description: 人员类型
+      personalNo:
+        type: string
+        description: 人员编号
+      phone:
+        type: string
+        description: 手机
+      post:
+        type: string
+        description: 职务
+      qrCode:
+        type: string
+        description: 二维码字符串
+      remarkOne:
+        type: string
+        description: 备注1
+      remarkThree:
+        type: string
+        description: 备注3
+      remarkTwo:
+        type: string
+        description: 备注2
+      resChina:
+        type: string
+        description: 在华驻地
+      serialNo:
+        type: string
+        description: 序号
+      serviceIns:
+        type: string
+        description: 服务机构
+      sex:
+        type: string
+        description: '性别,M或F'
+      sourceBatch:
+        type: string
+        description: 来源及批次
+      spotNo:
+        type: string
+        description: 通行区域
+      surname:
+        type: string
+        description: 英文姓，仅限输入英文和点
+      surnamePinyin:
+        type: string
+        description: 姓拼音
+      tableName:
+        type: string
+        description: 表名
+      tel:
+        type: string
+        description: 联系电话
+      tradeShCn:
+        type: string
+        description: 交易团简称（中）
+      tradeShEn:
+        type: string
+        description: 交易团简称（英）
+      unitCode:
+        type: string
+        description: 单位代码
+    title: 境外人员对象模型
+  PersonFeedback:
+    type: object
+    properties:
+      msgInfoList:
+        type: array
+        description: 反馈信息
+        items:
+          $ref: '#/definitions/PersonMsgInfo'
+      type:
+        type: string
+        description: 人员类型，01：境内，02：外国，03：港澳台
+    title: PersonFeedback
+  PersonMsgInfo:
+    type: object
+    required:
+      - id
+    properties:
+      backReason:
+        type: string
+        description: 退回原因
+      backStatus:
+        type: string
+        description: |-
+          背审状态
+           01: 已推送 02: 通过  03: 不通过  04:退回
+      certStatus:
+        type: string
+        description: |-
+          制证状态
+           01: 已推送 02: 制证中 03: 已完成  04:退回
+      id:
+        type: string
+        description: 数据业务id
+    title: PersonMsgInfo
+  SaveResult:
+    type: object
+    properties:
+      'type':
+        type: string
+        description: 人员类型，01：境内，02：外国，03：港澳台
+        example: "01"
+      expNo:
+        type: string
+        description: 批次号
+        example: "100192834"
+      dataList:
+        type: array
+        items:
+          type: object
+          description: 保存结果
+          properties:
+            id:
+              type: string
+              description: 人员ID
+              example: "12345678901234567890123456789012"
+            pushStatus:
+              type: string
+              description: 保存结果
+              example: "Success"

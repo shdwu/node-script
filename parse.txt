@@ -1,0 +1,40 @@
+//// ,@Column(name = "rybh", length = 100),private String rybh;
+//
+//// ,@Column(name = "xm", length = 100),private String xm;
+//
+//// ,@Column(name = "csrq", length = 100),private String csrq;
+//
+//// ,@Column(name = "xb", length = 100),private String xb;
+//
+//// ,@Column(name = "hjszs", length = 100),private String hjszs;
+//
+//// ,@Column(name = "hjszcs", length = 100),private String hjszcs;
+//
+//// ,@Column(name = "hjszd", length = 100),private String hjszd;
+//
+//// ,@Column(name = "dqjzs", length = 100),private String dqjzs;
+//
+//// ,@Column(name = "dqjzcs", length = 100),private String dqjzcs;
+//
+//// ,@Column(name = "dqjzd", length = 100),private String dqjzd;
+//
+//// ,@Column(name = "sfzjlx", length = 100),private String sfzjlx;
+//
+//// ,@Column(name = "sfzjhm", length = 100),private String sfzjhm;
+//
+//// ,@Column(name = "rylx", length = 100),private String rylx;
+//
+//// ,@Column(name = "gzdw", length = 100),private String gzdw;
+//
+//// ,@Column(name = "fzdw", length = 100),private String fzdw;
+//
+//// ,@Column(name = "txqy", length = 100),private String txqy;
+//
+//// ,@Column(name = "gddh", length = 100),private String gddh;
+//
+//// ,@Column(name = "yddh", length = 100),private String yddh;
+//
+//// ,@Column(name = "dzyx", length = 100),private String dzyx;
+//
+//// ,@Column(name = "bz", length = 100),private String bz;
+//
